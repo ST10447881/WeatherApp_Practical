@@ -38,11 +38,21 @@ class MainActivity3 : AppCompatActivity() {
         val weatherArray = intent.getStringArrayExtra("weatherArray")?.toList()?: emptyList()
 
         //Calculates the average temperature for the entire week
-        val allTemps = mintempArray + maxtempArray  //combines min and max temperatures
-        val avgTemp = if (allTemps.isNotEmpty()){   //Checks if there are temperatures to average
-            allTemps.sum() / allTemps.size          //calculates the average
+        var sumTemp = 0.0f
+        var countTemp = 0
+        for (temp in mintempArray){
+            sumTemp += temp
+            countTemp++
+        }
+        for (temp in maxtempArray){
+            sumTemp += temp
+            countTemp++
+        }
+
+        val avgTemp = if (countTemp > 0){
+            sumTemp / countTemp
         }else{
-            0.0f    // returns 0 if no temperatures are available
+            0.0f
         }
 
         //Displays the average temperature in in the tvResult TextView
